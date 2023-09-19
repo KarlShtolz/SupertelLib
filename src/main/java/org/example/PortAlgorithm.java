@@ -90,12 +90,13 @@ public class PortAlgorithm {
             for (int i = 0; i < count; i++) {
                 matrixAnswer[i][j] = matrixAll[j][(i) % matrixAll[j].length];
             }
-
         }
         int [][] matrixTest = new int [count][arrStr.length];
         Set<String> setAnswer = new HashSet<>();
         for (int i = 0; i < count; i++) {
             for (int j = 0; j < arrStr.length; j++) {
+                makeShift(matrixAnswer, j);
+                setAnswer.add(Arrays.toString((matrixAnswer[0])));
                 for (int k = 0; k < arrStr.length; k++) {
                     makeShift(matrixAnswer, k);
                     setAnswer.add(Arrays.toString((matrixAnswer[0])));
@@ -112,6 +113,7 @@ public class PortAlgorithm {
                 }
             }
         }
+        System.out.println("size=" + setAnswer.size());
         Iterator<String> i = setAnswer.iterator();
         int b = 0;
         while (i.hasNext()) {
@@ -151,7 +153,7 @@ public class PortAlgorithm {
                 if (charArrFromStr[i] != ',' && charArrFromStr[i] != ']') {
                     stringBuilder.append(charArrFromStr[i]);
                 } else if (charArrFromStr[i] == ',' || charArrFromStr[i] == ']') {
-                    arrayFromStr[k] = Byte.parseByte(stringBuilder.toString());
+                    arrayFromStr[k] = Integer.parseInt(stringBuilder.toString());
                     k++;
                     stringBuilder = new StringBuilder();
                 }
@@ -162,7 +164,6 @@ public class PortAlgorithm {
         }
         return arrayFromStr;
     }
-
     public static int [][] makeShift(int[][]arr, int indWidth){
         int tmp = arr[0][indWidth];
         for(int i = 1; i < arr.length; i++) {
